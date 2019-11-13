@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Animated tooltip using GSAP</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.11.4/TweenMax.min.js"></script>
+  </head>
+  <body>
+    <div class="cursor"></div>
+    <div class="wrapper">
+      <div class="project-list">
+        <div class="project p-1">
+          <div class="project-title"><h1>Motionland</h1></div>
+          <div class="project-categ">Branding</div>
+          <div class="project-overlay"></div>
+        </div>
+        <div class="project p-2">
+          <div class="project-title"><h1>Focus Reactive</h1></div>
+          <div class="project-categ">Photography</div>
+          <div class="project-overlay"></div>
+        </div>
+        <div class="project p-3">
+          <div class="project-title"><h1>Aspect</h1></div>
+          <div class="project-categ">Web Design</div>
+          <div class="project-overlay"></div>
+        </div>
+        <div class="project p-4">
+          <div class="project-title"><h1>Logomark</h1></div>
+          <div class="project-categ">Branding</div>
+          <div class="project-overlay"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var $cursor = $(".cursor"),
+        $overlay = $(".project-overlay");
+
+      function moveCircle(e) {
+        TweenLite.to($cursor, 0.5, {
+          css: {
+            left: e.pageX,
+            top: e.pageY
+          },
+          delay: 0.03
+        });
+      }
+
+      $(".p-1").hover(function() {
+        $(".cursor").css({ "background-image": "url(image-1.jpg)" });
+      });
+      $(".p-2").hover(function() {
+        $(".cursor").css({ "background-image": "url(image-2.jpg)" });
+      });
+      $(".p-3").hover(function() {
+        $(".cursor").css({ "background-image": "url(image-3.jpg)" });
+      });
+      $(".p-4").hover(function() {
+        $(".cursor").css({ "background-image": "url(image-4.jpg)" });
+      });
+
+      var flag = false;
+      $($overlay).mousemove(function() {
+        flag = true;
+        TweenLite.to($cursor, 0.3, { scale: 1, autoAlpha: 1 });
+        $($overlay).on("mousemove", moveCircle);
+      });
+
+      $($overlay).mouseout(function() {
+        flag = false;
+        TweenLite.to($cursor, 0.3, { scale: 0.1, autoAlpha: 0 });
+      });
+    </script>
+  </body>
+</html>
